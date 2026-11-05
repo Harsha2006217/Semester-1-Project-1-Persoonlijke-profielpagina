@@ -1,0 +1,103 @@
+@startuml interactie-leesmodus
+' ============================================================
+' Project 1 - Persoonlijke profielpagina
+' Maker: Harsha Vardhan Kanaparthi
+' Bestand: 04-interactie-leesmodus-en-menu.puml
+' Doel: activiteitendiagram van mijn wildcard user story.
+'       Wat gebeurt er als een bezoeker op de leesmodusknop klikt?
+' ============================================================
+
+title Leesmodus (wildcard user story) - wat er gebeurt na een klik
+
+start
+:Bezoeker opent de pagina;
+:script.js leest localStorage\nsleutel "harsha-leesmodus";
+
+if (opgeslagen waarde is "aan"?) then (ja)
+  :klasse "leesmodus" op <html> zetten;
+  :aria-pressed = true;
+  :knoptekst wordt "Normaal";
+else (nee)
+  :normale weergave houden;
+  :aria-pressed = false;
+  :knoptekst blijft "Leesmodus";
+endif
+
+:headerhoogte meten en in\nCSS-variabele --header-hoogte zetten;
+
+repeat :bezoeker gebruikt de pagina;
+  if (klikt op de leesmodusknop?) then (ja)
+    :stand omdraaien (aan wordt uit, uit wordt aan);
+    :klasse op <html> wisselen;
+    :aria-pressed aanpassen;
+    :knoptekst aanpassen;
+    :nieuwe stand in localStorage bewaren;
+    note right
+      Lukt opslaan niet (privevenster)?
+      Dan werkt de knop nog steeds,
+      alleen wordt niets onthouden.
+    end note
+    :header opnieuw meten;
+  else (nee)
+    :niets doen;
+  endif
+repeat while (pagina blijft open?) is (ja)
+-> nee;
+stop
+@enduml
+
+@startuml interactie-menu
+title Hamburgermenu op een smal scherm
+
+start
+:Scherm is smaller dan 52em;
+:menu is dicht (display: none)\naria-expanded = false;
+
+repeat
+  :bezoeker is op de pagina;
+  switch (actie)
+  case (tik op Menuknop)
+    :menu openen of sluiten;
+    :aria-expanded gelijkzetten met de stand;
+  case (klik op een menulink)
+    :browser springt naar de sectie;
+    :menu sluiten;
+    :actieve link markeren via IntersectionObserver;
+  case (Escape-toets)
+    :menu sluiten;
+    :focus terug op de menuknop;
+  case (venster wordt breed)
+    :menu altijd zichtbaar;
+    :open/dicht-stand opruimen;
+  endswitch
+repeat while (bezoeker blijft op de pagina?) is (ja)
+-> nee;
+stop
+@enduml
+
+@startuml responsive-gedrag
+title Wat de CSS doet bij welke schermbreedte (US8)
+
+start
+:Browser laadt style.css;
+if (breedte > 60em?) then (ja)
+  :hero in 2 kolommen\nkaarten in 3 of 4 kolommen;
+else (nee)
+  :hero in 1 kolom\nbeeld onder de tekst;
+endif
+
+if (breedte > 52em?) then (ja)
+  :menu als rij links zichtbaar;
+else (nee)
+  :hamburgerknop zichtbaar\nmenu dicht tot klik;
+endif
+
+if (breedte > 30em?) then (ja)
+  :normale witruimte\nknopteksten zichtbaar;
+else (nee)
+  :minder witruimte\nknoppen over volle breedte\nalleen HK-rondje en "Aa" in de balk;
+endif
+
+:Alle maten in rem, dus bij inzoomen\nblijft de indeling werken;
+stop
+@enduml

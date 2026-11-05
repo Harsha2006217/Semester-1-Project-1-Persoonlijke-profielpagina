@@ -1,0 +1,62 @@
+@startuml sitemap-en-bestanden
+' ============================================================
+' Project 1 - Persoonlijke profielpagina
+' Maker: Harsha Vardhan Kanaparthi
+' Bestand: 03-sitemap-en-bestanden.puml
+' Doel: laten zien welke secties de pagina heeft en hoe de
+'       bestanden in de map staan. Twee diagrammen in een bestand.
+' ============================================================
+
+title Sitemap van de profielpagina (alle secties zitten op 1 pagina)
+
+@startwbs
+* index.html
+** #start - Hero (US1)
+*** Naam + ondertitel
+*** Monogram (US3)
+*** Twee knoppen
+** #over-mij - Over mij (US2)
+*** Drie alinea's
+*** Drie feitjes
+** #interesses - Interesses (US5)
+*** Vier kaarten
+*** Illustratie cloud + schild
+** #vaardigheden - Vaardigheden
+*** Bouwen
+*** Beheer en infra
+*** Cloud en AI
+** #achtergrond - Achtergrond
+*** Tijdlijn opleiding en stages
+*** Certificaten
+** #project1 - Over deze pagina
+*** Mappenindeling
+*** Gemaakte keuzes
+** #contact - Contact
+*** E-mail
+*** LinkedIn
+*** Meer links
+** footer
+*** Jaartal (via JavaScript)
+*** Terug naar boven
+@endwbs
+@enduml
+
+@startuml mappenstructuur
+title Mappenindeling zoals de opdracht die voorschrijft
+
+salt
+{
+  {T
+    + project1-profielpagina
+    ++ index.html
+    ++ css
+    +++ style.css
+    ++ js
+    +++ script.js
+    ++ img
+    +++ profiel-harsha.svg
+    +++ cloud-security.svg
+    +++ favicon.svg
+  }
+}
+@enduml

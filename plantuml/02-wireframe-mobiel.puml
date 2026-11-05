@@ -1,0 +1,107 @@
+@startuml wireframe-mobiel
+' ============================================================
+' Project 1 - Persoonlijke profielpagina
+' Maker: Harsha Vardhan Kanaparthi
+' Bestand: 02-wireframe-mobiel.puml
+' Doel: wireframe van dezelfde pagina op een telefoonscherm.
+'       Laat zien dat de inhoud onder elkaar komt (US8).
+' ============================================================
+
+salt
+{
+  {+ <b>Wireframe mobiel - 390 px breed (US8)</b> }
+  --
+  {
+    <b>HK</b> | . | [ = Menu ] | [ Aa ]
+  }
+  <i>Bij 320 px verdwijnt de naamtekst in de balk,
+  <i>het HK-rondje blijft staan.
+  ==
+  {+ <b>Menu open (na tik op Menu)</b>
+    Over mij
+    --
+    Interesses
+    --
+    Vaardigheden
+    --
+    Achtergrond
+    --
+    Project 1
+    --
+    Contact
+  }
+  <i>Menu klapt dicht na een klik of op Escape.
+  ==
+  {+ <b>Hero - US1</b>
+    <i>PERSOONLIJKE PROFIELPAGINA
+    --
+    <size:16><b>Harsha Vardhan Kanaparthi</b></size>
+    --
+    HBO-ICT student, richting
+    cyber security en cloud
+    --
+    Amstelveen, Noord-Holland
+    --
+    [    Lees wie ik ben    ]
+    --
+    [   Neem contact op   ]
+    --
+    monogram HK (kleiner, onder de tekst)
+  }
+  <i>Beeld staat onder de tekst, zodat mijn naam
+  <i>zonder scrollen zichtbaar blijft.
+  ==
+  {+ <b>Over mij</b>
+    tekst op volle breedte
+    --
+    NU: jaar 1 HBO-ICT
+    --
+    HIERVOOR: mbo-4
+    --
+    TALEN: NL, EN, HI, TE
+  }
+  ==
+  {+ <b>Interesses</b>
+    Cyber security
+    --
+    Cloud: Azure en AWS
+    --
+    Netwerken en Linux
+    --
+    Dingen uitproberen
+    --
+    illustratie cloud + schild
+  }
+  <i>Kaarten staan onder elkaar (1 kolom).
+  ==
+  {+ <b>Vaardigheden</b>
+    Bouwen
+    --
+    Beheer en infra
+    --
+    Cloud en AI
+  }
+  ==
+  {+ <b>Opleiding en ervaring</b>
+    tijdlijn, nieuwste bovenaan
+  }
+  ==
+  {+ <b>Over deze pagina</b>
+    mappenindeling
+    --
+    gemaakte keuzes
+  }
+  ==
+  {+ <b>Contact</b>
+    E-mail
+    --
+    LinkedIn
+    --
+    Meer links
+  }
+  ==
+  {
+    (c) 2026 Harsha | [ Terug naar boven ]
+  }
+}
+@enduml

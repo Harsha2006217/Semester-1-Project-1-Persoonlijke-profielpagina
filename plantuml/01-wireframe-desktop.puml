@@ -1,0 +1,118 @@
+@startuml wireframe-desktop
+' ============================================================
+' Project 1 - Persoonlijke profielpagina
+' Maker: Harsha Vardhan Kanaparthi
+' Bestand: 01-wireframe-desktop.puml
+' Doel: wireframe van de pagina op een breed scherm (desktop).
+' Soort diagram: Salt (Wireframe / mockup-taal van PlantUML).
+' Renderen: java -jar plantuml.jar 01-wireframe-desktop.puml
+' ============================================================
+
+salt
+{
+  {+ <b>Wireframe desktop - profielpagina Harsha (1440 px) }
+  --
+  {
+    <b>HK  Harsha Kanaparthi | Over mij | Interesses | Vaardigheden | Achtergrond | Project 1 | Contact | [ Aa Leesmodus ]
+  }
+  ==
+  {
+    {
+      <i>PERSOONLIJKE PROFIELPAGINA - PROJECT 1
+      --
+      <size:20><b>Harsha Vardhan Kanaparthi</b></size>
+      --
+      HBO-ICT student aan de Hogeschool Utrecht.
+      Ik wil de kant op van cyber security en cloud.
+      --
+      Amstelveen, Noord-Holland
+      --
+      [ Lees wie ik ben ] | [ Neem contact op ]
+    }
+    |
+    {
+      {+ <b>afbeelding</b>
+        monogram HK (SVG)
+        netwerklijnen op de achtergrond
+      }
+      <i>US3: persoonlijk beeld + alt-tekst
+    }
+  }
+  ==
+  {+ <b>Over mij  (US2: eerste indruk)</b>
+    Alinea 1: wie ik ben en welke opleiding ik doe
+    --
+    Alinea 2: waarom cyber security en cloud
+    --
+    Alinea 3: hoe ik deze pagina heb gemaakt
+    --
+    {
+      <b>NU</b> | <b>HIERVOOR</b> | <b>TALEN</b>
+      Jaar 1 HBO-ICT | Mbo-4 Software Dev | NL, EN, HI, TE
+    }
+  }
+  ==
+  {+ <b>Waar ik nieuwsgierig naar ben  (US5: interesses)</b>
+    {
+      {+ Cyber security | { netwerkbeveiliging, Microsoft Security Essentials } }
+      |
+      {+ Cloud: Azure/AWS | { Azure AI Essentials, cloudinfra } }
+      |
+      {+ Netwerk en Linux | { Arista, Ubuntu, Cisco } }
+      |
+      {+ Uitproberen | { klein beginnen, zelf bouwen } }
+    }
+    --
+    {+ illustratie
+      wolk met schild + drie servers (SVG)
+    }
+  }
+  ==
+  {+ <b>Wat ik al een beetje kan</b>
+    {
+      {+ Bouwen | HTML/CSS, JavaScript, Python, Git }
+      |
+      {+ Beheer en infra | Linux, Windows Server, netwerken, REST }
+      |
+      {+ Cloud en AI | Azure, AWS, Azure AI Services }
+    }
+  }
+  ==
+  {+ <b>Opleiding en ervaring</b>
+    2026-heden | HBO-ICT Hogeschool Utrecht
+    --
+    sep 2025-jan 2026 | Stage ROC van Amsterdam
+    --
+    sep 2024-feb 2025 | Stage Kompas Publishing
+    --
+    2023-2026 | Mbo-4 Software Development
+    --
+    2019-2023 | VMBO-KB Yuverta
+    --
+    Certificaten: Azure AI, Security Essentials, Arista, Ubuntu, Xero
+  }
+  ==
+  {+ <b>Over deze pagina (Project 1)</b>
+    {
+      {+ Mappenindeling | index.html, css/, js/, img/ }
+      |
+      {+ Gemaakte keuzes | geen Bootstrap, werkt bij inzoomen, geen externe bestanden, geen adres of telefoonnummer }
+    }
+  }
+  ==
+  {+ <b>Contact</b>
+    {
+      E-mail | <link:mailto:harsha.kanaparthi20062@gmail.com>
+      --
+      LinkedIn | <link:https://www.linkedin.com/in/harsha-vardhan-kanaparthi-767ab3277>
+      --
+      Meer links | <link:https://bio.site/harsha_knp>
+    }
+    <i>Privacy: geen cookies, geen trackers, geen formulier
+  }
+  ==
+  {
+    (c) 2026 Harsha Vardhan Kanaparthi | Gemaakt met HTML, CSS en JavaScript | [ Terug naar boven ]
+  }
+}
+@enduml
