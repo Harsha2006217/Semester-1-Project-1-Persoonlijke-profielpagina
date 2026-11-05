@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Profiellogo / monogram van Harsha Kanaparthi.
+  Zelf getekend in SVG. Voordeel van SVG: het is tekst, blijft scherp op elk
+  scherm en het bestand is klein (geen foto van een paar honderd kilobyte).
+  viewBox 0 0 480 480 = het tekengebied. Alles hierbinnen schaalt mee.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480" role="img" aria-labelledby="titel omschrijving">
+  <title id="titel">Monogram HK</title>
+  <desc id="omschrijving">De letters H en K in een donkerblauw vlak, met dunne lijnen en stippen die een netwerk voorstellen.</desc>
+
+  <defs>
+    <!-- Verloop voor de achtergrond: linksboven iets lichter dan rechtsonder. -->
+    <linearGradient id="achtergrond" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#16233a"/>
+      <stop offset="100%" stop-color="#0b1220"/>
+    </linearGradient>
+    <linearGradient id="letters" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7cc7ff"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Achtergrondvlak met afgeronde hoeken. -->
+  <rect width="480" height="480" rx="28" fill="url(#achtergrond)"/>
+
+  <!-- Netwerklijnen: dun en met lage dekking, zodat ze niet overheersen. -->
+  <g stroke="#7cc7ff" stroke-width="1.5" opacity="0.35" fill="none">
+    <path d="M40 90 L140 150 L120 250 L210 320 L180 420"/>
+    <path d="M440 70 L350 140 L390 240 L300 300 L340 420"/>
+    <path d="M140 150 L350 140"/>
+    <path d="M120 250 L390 240"/>
+    <path d="M210 320 L300 300"/>
+  </g>
+
+  <!-- Knooppunten van het netwerk. -->
+  <g fill="#7cc7ff" opacity="0.7">
+    <circle cx="40" cy="90" r="5"/>
+    <circle cx="140" cy="150" r="6"/>
+    <circle cx="120" cy="250" r="5"/>
+    <circle cx="210" cy="320" r="6"/>
+    <circle cx="180" cy="420" r="5"/>
+    <circle cx="440" cy="70" r="5"/>
+    <circle cx="350" cy="140" r="6"/>
+    <circle cx="390" cy="240" r="5"/>
+    <circle cx="300" cy="300" r="6"/>
+    <circle cx="340" cy="420" r="5"/>
+  </g>
+
+  <!-- Cirkel achter de letters, zodat ze los komen van het netwerk. -->
+  <circle cx="240" cy="240" r="118" fill="#0b1220" opacity="0.85"/>
+  <circle cx="240" cy="240" r="118" fill="none" stroke="#2b3d59" stroke-width="2"/>
+
+  <!-- De letters H en K, getekend met rechthoeken en lijnen in plaats van een
+       lettertype. Zo is het logo op elke computer precies hetzelfde. -->
+  <g fill="url(#letters)">
+    <!-- H -->
+    <rect x="176" y="196" width="16" height="88" rx="4"/>
+    <rect x="228" y="196" width="16" height="88" rx="4"/>
+    <rect x="176" y="232" width="68" height="15" rx="4"/>
+    <!-- K -->
+    <rect x="264" y="196" width="16" height="88" rx="4"/>
+    <path d="M280 240 L318 196 h20 l-40 46 42 42 h-21 z"/>
+  </g>
+
+  <!-- Onderschrift onder de cirkel. -->
+  <text x="240" y="404" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif"
+        font-size="20" letter-spacing="4" fill="#b6c2d6">HARSHA K</text>
+</svg>

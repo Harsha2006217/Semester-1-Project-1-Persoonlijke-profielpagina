@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Illustratie bij mijn interesses: cloud met beveiliging.
+  Een wolk met een schild erin, verbonden met drie servers.
+  Zelf getekend in SVG, viewBox 640x360.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360" role="img" aria-labelledby="titel2 omschrijving2">
+  <title id="titel2">Cloud met beveiliging</title>
+  <desc id="omschrijving2">Een wolk met een schild en een vinkje, met lijnen naar drie kleine servers eronder.</desc>
+
+  <defs>
+    <linearGradient id="wolk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1b2c49"/>
+      <stop offset="100%" stop-color="#121c2e"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="640" height="360" fill="#0b1220"/>
+
+  <!-- Achtergrondraster: geeft een technisch gevoel zonder druk te worden. -->
+  <g stroke="#1a2740" stroke-width="1">
+    <path d="M0 60 H640 M0 120 H640 M0 180 H640 M0 240 H640 M0 300 H640"/>
+    <path d="M80 0 V360 M160 0 V360 M240 0 V360 M320 0 V360 M400 0 V360 M480 0 V360 M560 0 V360"/>
+  </g>
+
+  <!-- Verbindingen van de wolk naar de servers. -->
+  <g stroke="#7cc7ff" stroke-width="2" fill="none" opacity="0.75">
+    <path d="M320 190 L140 262"/>
+    <path d="M320 190 L320 262"/>
+    <path d="M320 190 L500 262"/>
+  </g>
+
+  <!-- De wolk, opgebouwd uit drie cirkels en een rechthoek. -->
+  <g>
+    <circle cx="268" cy="120" r="46" fill="url(#wolk)" stroke="#2b3d59" stroke-width="2"/>
+    <circle cx="330" cy="106" r="56" fill="url(#wolk)" stroke="#2b3d59" stroke-width="2"/>
+    <circle cx="386" cy="132" r="38" fill="url(#wolk)" stroke="#2b3d59" stroke-width="2"/>
+    <rect x="222" y="132" width="204" height="52" rx="24" fill="url(#wolk)" stroke="#2b3d59" stroke-width="2"/>
+    <!-- Deze rechthoek dekt de randjes binnenin de wolk af. -->
+    <rect x="234" y="120" width="180" height="56" fill="url(#wolk)"/>
+  </g>
+
+  <!-- Schild in de wolk: staat voor security. -->
+  <g transform="translate(320 124)">
+    <path d="M0 -34 L26 -22 V4 C26 22 14 34 0 40 C-14 34 -26 22 -26 4 V-22 Z"
+          fill="#0b1220" stroke="#7cc7ff" stroke-width="3"/>
+    <path d="M-11 2 L-3 11 L13 -8" fill="none" stroke="#7cc7ff" stroke-width="4"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Drie servers onderaan. -->
+  <g>
+    <!-- server 1 -->
+    <rect x="104" y="262" width="72" height="58" rx="8" fill="#16233a" stroke="#2b3d59" stroke-width="2"/>
+    <rect x="116" y="276" width="48" height="6" rx="3" fill="#7cc7ff" opacity="0.8"/>
+    <rect x="116" y="290" width="34" height="6" rx="3" fill="#b6c2d6" opacity="0.6"/>
+    <circle cx="158" cy="306" r="4" fill="#7cc7ff"/>
+
+    <!-- server 2 -->
+    <rect x="284" y="262" width="72" height="58" rx="8" fill="#16233a" stroke="#2b3d59" stroke-width="2"/>
+    <rect x="296" y="276" width="48" height="6" rx="3" fill="#7cc7ff" opacity="0.8"/>
+    <rect x="296" y="290" width="34" height="6" rx="3" fill="#b6c2d6" opacity="0.6"/>
+    <circle cx="338" cy="306" r="4" fill="#7cc7ff"/>
+
+    <!-- server 3 -->
+    <rect x="464" y="262" width="72" height="58" rx="8" fill="#16233a" stroke="#2b3d59" stroke-width="2"/>
+    <rect x="476" y="276" width="48" height="6" rx="3" fill="#7cc7ff" opacity="0.8"/>
+    <rect x="476" y="290" width="34" height="6" rx="3" fill="#b6c2d6" opacity="0.6"/>
+    <circle cx="518" cy="306" r="4" fill="#7cc7ff"/>
+  </g>
+
+  <!-- Bijschriften in de tekening. -->
+  <g font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#b6c2d6" text-anchor="middle">
+    <text x="140" y="342">netwerk</text>
+    <text x="320" y="342">cloud</text>
+    <text x="500" y="342">opslag</text>
+  </g>
+</svg>

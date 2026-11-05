@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<!--
+  Project 1 - Persoonlijke profielpagina
+  Maker: Harsha Vardhan Kanaparthi
+  Opleiding: HBO-ICT (Open-ICT), Hogeschool Utrecht
+  Squad: Harsha Kanaparthi, Amer Kopic, Abdallah Meftahi, Selim Kocak
+
+  Dit bestand is de structuur van de pagina (de "botten").
+  Alle opmaak staat in css/style.css, alle interactie in js/script.js.
+  Ik heb bewust geen Bootstrap of ander framework gebruikt, zodat ik zelf
+  elke regel snap en kan uitleggen.
+-->
+<html lang="nl">
+<head>
+  <!-- Tekencodering: zorgt dat letters met accenten (zoals e met accent) goed werken. -->
+  <meta charset="utf-8">
+
+  <!-- Zonder deze regel zoomt een telefoon de hele pagina uit en wordt alles klein.
+       Met width=device-width is 1 CSS-pixel op de telefoon ook echt 1 pixel breed. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Titel in het tabblad van de browser. -->
+  <title>Harsha Vardhan Kanaparthi - persoonlijke profielpagina</title>
+
+  <!-- Korte omschrijving voor zoekmachines en voor als iemand de link deelt. -->
+  <meta name="description" content="Persoonlijke profielpagina van Harsha Vardhan Kanaparthi, HBO-ICT student aan de Hogeschool Utrecht met interesse in cyber security en cloud.">
+  <meta name="author" content="Harsha Vardhan Kanaparthi">
+
+  <!-- Kleur van de browserbalk op mobiel, past bij de donkere achtergrond. -->
+  <meta name="theme-color" content="#0b1220">
+
+  <!-- Mijn eigen stylesheet. Geen externe fonts en geen CDN: de pagina werkt ook offline. -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Icoontje in het tabblad, als SVG zodat het klein blijft en scherp is op elk scherm. -->
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+</head>
+
+<body>
+  <!-- Skiplink: iemand die met het toetsenbord werkt kan met 1x Tab meteen naar de
+       inhoud, zonder eerst door het hele menu heen te tabben. -->
+  <a class="skiplink" href="#inhoud">Meteen naar de inhoud</a>
+
+  <!-- ============ BOVENKANT / MENU ============ -->
+  <header class="site-header">
+    <div class="container header-inhoud">
+
+      <!-- Merk links: initialen + naam. Klik erop = terug naar boven. -->
+      <a class="merk" href="#start">
+        <span class="merk-rondje" aria-hidden="true">HK</span>
+        <span class="merk-tekst">Harsha Kanaparthi</span>
+      </a>
+
+      <!-- Knop voor het menu op een smalle telefoon.
+           aria-expanded vertelt een schermlezer of het menu open of dicht is.
+           aria-controls verwijst naar het menu dat deze knop bedient. -->
+      <button class="menu-knop" id="menu-knop" type="button"
+              aria-expanded="false" aria-controls="hoofdmenu">
+        <span class="menu-streepjes" aria-hidden="true"></span>
+        <span class="menu-knop-tekst">Menu</span>
+      </button>
+
+      <!-- Navigatie. Op desktop staat dit naast elkaar, op mobiel klapt het open. -->
+      <nav class="hoofdmenu" id="hoofdmenu" aria-label="Hoofdmenu">
+        <ul class="menu-lijst">
+          <li><a href="#over-mij">Over mij</a></li>
+          <li><a href="#interesses">Interesses</a></li>
+          <li><a href="#vaardigheden">Vaardigheden</a></li>
+          <li><a href="#achtergrond">Achtergrond</a></li>
+          <li><a href="#project1">Project 1</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Wildcard user story: de leesmodus-knop. Zie js/script.js voor de werking.
+           De toegankelijke naam is gewoon de tekst op de knop. Extra uitleg staat
+           in een verbonden span, zodat de naam niet afwijkt van wat er staat. -->
+      <button class="leesmodus-knop" id="leesmodus-knop" type="button"
+              aria-pressed="false" aria-describedby="leesmodus-uitleg">
+        <span aria-hidden="true">Aa</span>
+        <span class="leesmodus-tekst">Leesmodus</span>
+      </button>
+      <span class="altijd-verborgen" id="leesmodus-uitleg">
+        Zet grotere tekst, meer regelafstand en meer contrast aan of uit.
+      </span>
+
+    </div>
+  </header>
+
+  <!-- Alle echte inhoud staat in main. Dat is het startpunt voor schermlezers. -->
+  <main id="inhoud">
+
+    <!-- ============ USER STORY 1: WIE IS DIT? ============
+         Dit blok staat bovenaan en is bewust niet hoger dan een telefoonscherm,
+         zodat mijn naam direct zichtbaar is zonder te scrollen. -->
+    <section class="hero" id="start">
+      <div class="container hero-inhoud">
+
+        <div class="hero-tekst">
+          <p class="hero-label">Persoonlijke profielpagina &middot; Project 1</p>
+
+          <!-- Precies een h1 op de pagina: mijn naam is het hoofdonderwerp. -->
+          <h1>Harsha Vardhan Kanaparthi</h1>
+
+          <p class="hero-ondertitel">
+            HBO-ICT student aan de Hogeschool Utrecht.
+            Ik wil de kant op van <strong>cyber security</strong> en <strong>cloud</strong>.
+          </p>
+
+          <p class="hero-plaats">
+            <!-- aria-hidden op het icoontje: een schermlezer hoeft geen "pinnetje" voor te lezen. -->
+            <span aria-hidden="true">&#9679;</span> Amstelveen, Noord-Holland
+          </p>
+
+          <div class="hero-knoppen">
+            <a class="knop knop-primair" href="#over-mij">Lees wie ik ben</a>
+            <a class="knop knop-rand" href="#contact">Neem contact op</a>
+          </div>
+        </div>
+
+        <!-- ============ USER STORY 3: PERSOONLIJK BEELD ============
+             Een getekend monogram in plaats van een foto. Ik heb op dit moment geen
+             goede foto die ik openbaar wil zetten; het monogram is persoonlijk en
+             past bij de technische stijl. Alt-tekst beschrijft wat er te zien is. -->
+        <figure class="hero-beeld">
+          <img src="img/profiel-harsha.svg" width="480" height="480"
+               alt="Getekend profiellogo met de initialen H K in een blauw vlak met lijnen die op een netwerk lijken.">
+          <figcaption>Mijn monogram, zelf getekend in SVG.</figcaption>
+        </figure>
+
+      </div>
+    </section>
+
+    <!-- ============ USER STORY 2: EERSTE INDRUK ============ -->
+    <section class="sectie" id="over-mij" aria-labelledby="kop-over-mij">
+      <div class="container">
+        <h2 id="kop-over-mij">Over mij</h2>
+
+        <!-- Tekstblokken krijgen een max-width in de CSS, zodat een regel niet
+             te lang wordt. Ongeveer 60 tot 75 tekens per regel leest prettig. -->
+        <div class="tekstblok">
+          <p>
+            Hoi, ik ben Harsha. Ik zit in het eerste jaar van HBO-ICT aan de Hogeschool
+            Utrecht. Hiervoor deed ik de mbo-4 opleiding Software Development bij ROC van
+            Amsterdam. Daar merkte ik dat ik het leukst word van de vraag: hoe zit een
+            systeem eigenlijk in elkaar, en hoe zorg je dat het veilig blijft?
+          </p>
+          <p>
+            Daarom wil me bij Open-ICT gaan richten op cyber security en cloud. Ik vind
+            het interessant hoe een netwerk, een server en een cloudplatform samenwerken,
+            en wat er misgaat als een van die onderdelen niet goed is ingesteld. Ik leer
+            dat het liefst door het zelf te bouwen en het daarna stuk te maken en te
+            repareren.
+          </p>
+          <p>
+            Deze pagina is mijn eerste opdracht van de opleiding. Ik heb hem gemaakt met
+            alleen HTML, CSS en een klein beetje JavaScript. Geen Bootstrap, geen
+            kant-en-klaar template. Alles wat je hier ziet, kan ik zelf uitleggen.
+          </p>
+        </div>
+
+        <!-- Drie korte feitjes. Als lijst, want het zijn losse punten en geen lopende tekst. -->
+        <ul class="feitjes">
+          <li>
+            <span class="feitje-kop">Nu</span>
+            <span class="feitje-tekst">Jaar 1 HBO-ICT, Hogeschool Utrecht</span>
+          </li>
+          <li>
+            <span class="feitje-kop">Hiervoor</span>
+            <span class="feitje-tekst">Mbo-4 Software Development, ROC van Amsterdam</span>
+          </li>
+          <li>
+            <span class="feitje-kop">Talen</span>
+            <span class="feitje-tekst">Nederlands, Engels, Hindi, Telugu</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ USER STORY 5: INTERESSES ============ -->
+    <section class="sectie sectie-anders" id="interesses" aria-labelledby="kop-interesses">
+      <div class="container">
+        <h2 id="kop-interesses">Waar ik nieuwsgierig naar ben</h2>
+        <p class="sectie-intro">
+          Vier onderwerpen waar ik in mijn eigen tijd mee bezig ben. Bij elk onderwerp
+          staat wat ik er concreet mee doe, niet alleen het woord.
+        </p>
+
+        <!-- Kaarten in een grid. Op breed scherm naast elkaar, op mobiel onder elkaar. -->
+        <ul class="kaarten">
+          <li class="kaart">
+            <h3>Cyber security</h3>
+            <p>
+              Hoe bescherm je een organisatie tegen aanvallen? Ik lees over netwerkbeveiliging
+              en volg de Microsoft Security Essentials cursus om de basisbegrippen te leren.
+            </p>
+          </li>
+          <li class="kaart">
+            <h3>Cloud: Azure en AWS</h3>
+            <p>
+              Ik wil snappen wat er gebeurt als je een applicatie niet meer op een eigen
+              server draait maar in de cloud. Ik heb de Azure AI Essentials cursus afgerond.
+            </p>
+          </li>
+          <li class="kaart">
+            <h3>Netwerken en Linux</h3>
+            <p>
+              Switches, routers en de command line. Ik heb certificaten gehaald bij Arista
+              Networks en Canonical (Ubuntu) om hier beter in te worden.
+            </p>
+          </li>
+          <li class="kaart">
+            <h3>Dingen uitproberen</h3>
+            <p>
+              Ik maak liever iets kleins dat werkt dan iets groots dat half af is. Deze
+              website is daar een voorbeeld van: eerst de basis, daarna pas extra's.
+            </p>
+          </li>
+        </ul>
+
+        <!-- Tweede persoonlijke afbeelding: symbolisch bij mijn interesses. -->
+        <figure class="illustratie">
+          <img src="img/cloud-security.svg" width="640" height="360"
+               alt="Illustratie van een wolk met een schild erin, verbonden met drie kleine servers.">
+          <figcaption>
+            Waar ik aan wil werken: systemen die in de cloud draaien en toch veilig zijn.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ VAARDIGHEDEN ============ -->
+    <section class="sectie" id="vaardigheden" aria-labelledby="kop-vaardigheden">
+      <div class="container">
+        <h2 id="kop-vaardigheden">Wat ik al een beetje kan</h2>
+        <p class="sectie-intro">
+          Ik zet dit er eerlijk bij: van sommige dingen ken ik de basis, andere heb ik
+          tijdens mijn stages echt gebruikt. Ik claim geen expert te zijn.
+        </p>
+
+        <div class="kolommen">
+          <div class="paneel">
+            <h3>Bouwen</h3>
+            <ul class="vinkjes">
+              <li>HTML en CSS (deze pagina)</li>
+              <li>JavaScript, basis</li>
+              <li>Python</li>
+              <li>Werken met Git</li>
+            </ul>
+          </div>
+          <div class="paneel">
+            <h3>Beheer en infra</h3>
+            <ul class="vinkjes">
+              <li>Linux, vooral Ubuntu</li>
+              <li>Windows Server, basis</li>
+              <li>Netwerken: Cisco en Arista</li>
+              <li>REST API's aanroepen</li>
+            </ul>
+          </div>
+          <div class="paneel">
+            <h3>Cloud en AI</h3>
+            <ul class="vinkjes">
+              <li>Microsoft Azure, basis</li>
+              <li>Amazon Web Services, basis</li>
+              <li>Azure AI Services</li>
+              <li>Generatieve AI toepassen in een workflow</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ACHTERGROND ============ -->
+    <section class="sectie sectie-anders" id="achtergrond" aria-labelledby="kop-achtergrond">
+      <div class="container">
+        <h2 id="kop-achtergrond">Opleiding en ervaring</h2>
+
+        <!-- Tijdlijn als genummerde lijst: de volgorde is hier echt betekenisvol. -->
+        <ol class="tijdlijn">
+          <li>
+            <p class="tijdlijn-periode">2026 - heden</p>
+            <h3>HBO-ICT, Hogeschool Utrecht</h3>
+            <p>
+              Bachelor Information and Communication Technology. Ik wil me gaan richten
+              op Cyber Security &amp; Cloud.
+            </p>
+          </li>
+          <li>
+            <p class="tijdlijn-periode">sep 2025 - jan 2026</p>
+            <h3>Stage software development, ROC van Amsterdam</h3>
+            <p>
+              Website gebouwd voor de Culturele INTROWEEK MBO 2026, waarmee studenten
+              gekoppeld worden aan culturele instellingen in Amsterdam. Ik werkte aan de
+              inschrijfformulieren, de koppeling van student aan instelling en het testen.
+            </p>
+          </li>
+          <li>
+            <p class="tijdlijn-periode">sep 2024 - feb 2025</p>
+            <h3>Stage software development, Kompas Publishing</h3>
+            <p>
+              Gewerkt aan applicaties in Python en JavaScript, aan het sneller maken van
+              bestaande code en aan het inbouwen van AI in het contentproces. Ook code
+              reviews en documentatie.
+            </p>
+          </li>
+          <li>
+            <p class="tijdlijn-periode">2023 - 2026</p>
+            <h3>Mbo-4 Software Development, ROC van Amsterdam</h3>
+            <p>Hier heb ik leren programmeren en voor het eerst in een team gewerkt.</p>
+          </li>
+          <li>
+            <p class="tijdlijn-periode">2019 - 2023</p>
+            <h3>VMBO-KB, Yuverta</h3>
+            <p>Groene richting. Daarna overgestapt naar techniek.</p>
+          </li>
+        </ol>
+
+        <h3 class="tussenkop">Certificaten die ik heb gehaald</h3>
+        <ul class="labels">
+          <li>Microsoft Azure AI Essentials</li>
+          <li>Microsoft Security Essentials</li>
+          <li>Network Automation Professional (Arista)</li>
+          <li>Ubuntu Linux Professional (Canonical)</li>
+          <li>Accounting Foundations (Xero)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ PROJECT 1: UITLEG OVER DEZE PAGINA ============ -->
+    <section class="sectie" id="project1" aria-labelledby="kop-project1">
+      <div class="container">
+        <h2 id="kop-project1">Over deze pagina</h2>
+        <p class="sectie-intro">
+          Deze pagina is opdracht 1 van semester 1. Hieronder staat wat ik heb gedaan en
+          waarom ik bepaalde keuzes heb gemaakt.
+        </p>
+
+        <div class="kolommen kolommen-twee">
+          <div class="paneel">
+            <h3>Zo is hij opgebouwd</h3>
+            <!-- Code in een pre/code blok: de inspringing blijft dan staan. -->
+            <pre class="codeblok"><code>index.html
+css/
+  style.css
+js/
+  script.js
+img/
+  profiel-harsha.svg
+  cloud-security.svg
+  favicon.svg</code></pre>
+            <p>
+              De HTML bepaalt de inhoud en de volgorde, de CSS bepaalt hoe het eruitziet,
+              en de JavaScript regelt alleen het menu, de leesmodus en het jaar in de footer.
+            </p>
+          </div>
+
+          <div class="paneel">
+            <h3>Keuzes die ik heb gemaakt</h3>
+            <ul class="vinkjes">
+              <li>
+                <strong>Geen Bootstrap.</strong> Amer zei in zijn feedback: blijf bij de
+                basis. Ik heb het framework eruit gehaald en de layout zelf gemaakt met
+                CSS Grid en Flexbox.
+              </li>
+              <li>
+                <strong>Werkt bij inzoomen.</strong> Selim liet zien dat de pagina brak bij
+                inzoomen. Ik gebruik nu overal relatieve maten en breekpunten, en ik heb
+                getest tot 400% zoom.
+              </li>
+              <li>
+                <strong>Geen externe bestanden.</strong> Alle letters komen uit het
+                systeemlettertype van je eigen computer. Er wordt niets bij Google of een
+                ander bedrijf opgehaald.
+              </li>
+              <li>
+                <strong>Geen telefoonnummer of adres.</strong> Alleen een mailadres en
+                LinkedIn. Deze pagina is openbaar, mijn huisadres hoeft daar niet op.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="sectie sectie-anders" id="contact" aria-labelledby="kop-contact">
+      <div class="container">
+        <h2 id="kop-contact">Contact</h2>
+        <p class="sectie-intro">
+          Vragen over deze pagina, of gewoon even kennismaken? Stuur me een mail of vind
+          me op LinkedIn.
+        </p>
+
+        <ul class="contactlijst">
+          <li>
+            <span class="contact-label">E-mail</span>
+            <!-- mailto opent het mailprogramma van de bezoeker. -->
+            <a href="mailto:harsha.kanaparthi20062@gmail.com">harsha.kanaparthi20062@gmail.com</a>
+          </li>
+          <li>
+            <span class="contact-label">LinkedIn</span>
+            <!-- target="_blank" opent een nieuw tabblad. rel="noopener" voorkomt dat de
+                 andere site via window.opener bij mijn pagina kan. -->
+            <a href="https://www.linkedin.com/in/harsha-vardhan-kanaparthi-767ab3277"
+               target="_blank" rel="noopener noreferrer">linkedin.com/in/harsha-vardhan-kanaparthi</a>
+          </li>
+          <li>
+            <span class="contact-label">Meer links</span>
+            <a href="https://bio.site/harsha_knp" target="_blank" rel="noopener noreferrer">bio.site/harsha_knp</a>
+          </li>
+        </ul>
+
+        <p class="privacy-noot">
+          Ik verzamel geen gegevens op deze pagina. Er staan geen cookies, geen trackers
+          en geen contactformulier dat iets opslaat.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ ONDERKANT ============ -->
+  <footer class="site-footer">
+    <div class="container footer-inhoud">
+      <p>&copy; <span id="jaar">2026</span> Harsha Vardhan Kanaparthi</p>
+      <p>Gemaakt met HTML, CSS en JavaScript. Project 1, HBO-ICT Hogeschool Utrecht.</p>
+      <p><a href="#start">Terug naar boven</a></p>
+    </div>
+  </footer>
+
+  <!-- Script onderaan en met defer: de HTML is dan al geladen voordat het script loopt. -->
+  <script src="js/script.js" defer></script>
+</body>
+</html>

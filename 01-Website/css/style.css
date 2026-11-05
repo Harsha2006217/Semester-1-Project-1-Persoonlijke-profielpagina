@@ -1,0 +1,899 @@
+/* ==========================================================================
+   Project 1 - Persoonlijke profielpagina
+   Maker: Harsha Vardhan Kanaparthi
+   Bestand: css/style.css
+
+   Hoe ik dit bestand heb opgebouwd (van boven naar beneden):
+   1. Variabelen: kleuren en maten op een plek, zodat ik ze overal hergebruik
+   2. Reset: standaard marges van de browser opruimen
+   3. Basis: lettertype, tekstkleur, achtergrond
+   4. Onderdelen: header, hero, secties, kaarten, tijdlijn, contact, footer
+   5. Leesmodus (mijn wildcard user story)
+   6. Breakpoints: aanpassingen voor smalle schermen en voor inzoomen
+
+   Belangrijk: ik werk met rem en % in plaats van vaste pixels. Daardoor
+   schaalt alles mee als een bezoeker inzoomt of de tekst groter zet.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. VARIABELEN
+   Een variabele begint met -- en roep ik aan met var(). Voordeel: als ik een
+   kleur wil veranderen, hoef ik dat maar op een plek te doen.
+   -------------------------------------------------------------------------- */
+:root {
+  /* Kleuren. Donkere achtergrond met lichte tekst, dat geeft veel contrast. */
+  --nacht: #0b1220;          /* achtergrond van de hele pagina */
+  --paneel: #121c2e;         /* achtergrond van een kaart of paneel */
+  --paneel-2: #16233a;       /* iets lichter, voor afwisseling tussen secties */
+  --rand: #2b3d59;           /* randjes om panelen */
+  --tekst: #eaf0f8;          /* gewone tekst */
+  --tekst-zacht: #b6c2d6;    /* tekst die minder belangrijk is */
+  --accent: #7cc7ff;         /* lichtblauw voor links en kopjes */
+  --accent-sterk: #1d4ed8;   /* donkerblauw voor de belangrijkste knop */
+  --wit: #ffffff;
+
+  /* Maten. rem = de lettergrootte van het html-element (standaard 16px).
+     Als de bezoeker inzoomt, wordt 1rem groter en schaalt alles mee. */
+  --ruimte-klein: 0.5rem;
+  --ruimte: 1rem;
+  --ruimte-groot: 2rem;
+  --ruimte-xl: 3.5rem;
+  --afronding: 0.75rem;
+  --breedte-inhoud: 70rem;   /* maximale breedte van de inhoud, ongeveer 1120px */
+
+  /* Deze variabele zet ik vanuit JavaScript op de echte hoogte van de header.
+     Zo blijft een kopje zichtbaar als je via het menu ergens heen springt. */
+  --header-hoogte: 4.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET
+   De browser geeft elk element eigen marges. Die haal ik weg zodat ik zelf
+   bepaal hoeveel ruimte er tussen de onderdelen zit.
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;   /* padding en border tellen mee in de breedte */
+  margin: 0;
+  padding: 0;
+}
+
+/* --------------------------------------------------------------------------
+   3. BASIS
+   -------------------------------------------------------------------------- */
+html {
+  font-size: 100%;              /* respecteert de lettergrootte van de bezoeker */
+  scroll-behavior: smooth;      /* rustig scrollen bij een link naar een sectie */
+  /* Zorgt dat een kopje niet onder de vaste header verdwijnt bij een sprong. */
+  scroll-padding-top: calc(var(--header-hoogte) + 1rem);
+  -webkit-text-size-adjust: 100%; /* telefoon mag mijn tekst niet zelf verkleinen */
+}
+
+body {
+  /* Systeemlettertypes: geen download, dus de pagina werkt ook zonder internet
+     en er gaat geen verzoek naar een extern bedrijf. */
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;             /* ruime regelafstand leest prettiger */
+  color: var(--tekst);
+  background-color: var(--nacht);
+  /* Heel lange woorden (zoals een mailadres) mogen afbreken in plaats van
+     buiten het scherm te lopen. Dit voorkomt horizontaal scrollen. */
+  overflow-wrap: break-word;
+}
+
+/* Elke afbeelding mag nooit breder worden dan zijn container.
+   height: auto houdt de verhouding goed, dus geen vervorming. */
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Koppen. Ik gebruik clamp(): de tekst groeit mee met het scherm, maar heeft
+   een minimum en een maximum. Daardoor is een kop op mobiel niet te groot. */
+h1 {
+  font-size: clamp(1.9rem, 1.2rem + 3vw, 3.1rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;      /* grote letters mogen iets dichter op elkaar */
+}
+
+h2 {
+  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.1rem);
+  line-height: 1.25;
+  margin-bottom: var(--ruimte);
+  color: var(--wit);
+}
+
+h3 {
+  font-size: clamp(1.1rem, 1rem + 0.4vw, 1.3rem);
+  line-height: 1.35;
+  margin-bottom: var(--ruimte-klein);
+  color: var(--wit);
+}
+
+p {
+  margin-bottom: var(--ruimte);
+}
+
+/* Laatste alinea in een blok heeft geen marge nodig, anders krijg je dubbele ruimte. */
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+a:hover {
+  color: var(--wit);
+}
+
+/* Duidelijke focusrand voor wie met Tab navigeert. Nooit weghalen zonder
+   vervanging: dan kan een toetsenbordgebruiker niet zien waar hij is. */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
+
+strong {
+  color: var(--wit);
+}
+
+/* Container: houdt de inhoud in het midden en begrenst de breedte.
+   min() kiest de kleinste waarde: op een smal scherm 100% minus de randen,
+   op een breed scherm maximaal 70rem. */
+.container {
+  width: min(100% - 2rem, var(--breedte-inhoud));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Tekst die alleen voor een schermlezer bedoeld is. Niet display:none, want
+   dan leest een schermlezer hem ook niet voor. Deze manier verbergt hem
+   visueel, maar houdt hem beschikbaar voor hulpsoftware. */
+.altijd-verborgen {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Skiplink: staat buiten beeld tot hij focus krijgt met Tab. */
+.skiplink {
+  position: absolute;
+  left: -999rem;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background-color: var(--accent-sterk);
+  color: var(--wit);
+  border-radius: 0 0 var(--afronding) 0;
+}
+
+.skiplink:focus {
+  left: 0;
+}
+
+/* --------------------------------------------------------------------------
+   4. HEADER EN MENU
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: sticky;   /* blijft bovenaan staan tijdens het scrollen */
+  top: 0;
+  z-index: 50;
+  background-color: rgba(11, 18, 32, 0.95);
+  border-bottom: 1px solid var(--rand);
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+
+.header-inhoud {
+  display: flex;
+  align-items: center;
+  gap: var(--ruimte);
+  /* flex-wrap is belangrijk: bij inzoomen past niet alles meer op een rij en
+     mogen de onderdelen naar een volgende regel. Zonder wrap zou het afkappen. */
+  flex-wrap: wrap;
+}
+
+.merk {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--tekst);
+  font-weight: 600;
+  margin-right: auto;   /* duwt de rest naar rechts */
+}
+
+.merk-rondje {
+  display: grid;
+  place-items: center;   /* zet de letters precies in het midden */
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background-color: var(--accent-sterk);
+  color: var(--wit);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  flex-shrink: 0;        /* rondje mag niet platgedrukt worden */
+}
+
+.merk-tekst {
+  font-size: 0.95rem;
+}
+
+/* Menu op breed scherm: een rij links. */
+.menu-lijst {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  list-style: none;
+}
+
+.menu-lijst a {
+  display: block;
+  padding: 0.4rem 0.2rem;
+  color: var(--tekst-zacht);
+  text-decoration: none;
+  font-size: 0.95rem;
+  border-bottom: 2px solid transparent; /* reserveren, zodat er niks verspringt bij hover */
+}
+
+.menu-lijst a:hover {
+  color: var(--wit);
+  border-bottom-color: var(--accent);
+}
+
+/* Deze klasse zet JavaScript op de link van de sectie waar je nu bent. */
+.menu-lijst a.is-actief {
+  color: var(--wit);
+  border-bottom-color: var(--accent);
+}
+
+/* Hamburgerknop: standaard verborgen, alleen zichtbaar op een smal scherm. */
+.menu-knop {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.8rem;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--tekst);
+  background-color: var(--paneel);
+  border: 2px solid var(--rand);
+  border-radius: var(--afronding);
+  cursor: pointer;
+}
+
+/* De drie streepjes van de hamburger, getekend met CSS in plaats van een plaatje. */
+.menu-streepjes,
+.menu-streepjes::before,
+.menu-streepjes::after {
+  display: block;
+  width: 1.1rem;
+  height: 2px;
+  background-color: var(--tekst);
+  content: "";
+}
+
+.menu-streepjes {
+  position: relative;
+}
+
+.menu-streepjes::before {
+  position: absolute;
+  top: -0.35rem;
+}
+
+.menu-streepjes::after {
+  position: absolute;
+  top: 0.35rem;
+}
+
+/* Knop van de leesmodus (wildcard user story). */
+.leesmodus-knop {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.8rem;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--tekst);
+  background-color: var(--paneel);
+  border: 2px solid var(--rand);
+  border-radius: var(--afronding);
+  cursor: pointer;
+}
+
+.leesmodus-knop:hover,
+.menu-knop:hover {
+  border-color: var(--accent);
+}
+
+/* Als de leesmodus aan staat, laat de knop dat ook zien. aria-pressed is de
+   bron: dezelfde eigenschap die een schermlezer voorleest, stuurt de opmaak. */
+.leesmodus-knop[aria-pressed="true"] {
+  background-color: var(--accent-sterk);
+  border-color: var(--accent);
+  color: var(--wit);
+}
+
+/* --------------------------------------------------------------------------
+   5. HERO (USER STORY 1)
+   -------------------------------------------------------------------------- */
+.hero {
+  padding-top: var(--ruimte-xl);
+  padding-bottom: var(--ruimte-xl);
+  /* Subtiel verloop, geen plaatje: scheelt een extra download. */
+  background-image: linear-gradient(160deg, #101c33 0%, var(--nacht) 60%);
+  border-bottom: 1px solid var(--rand);
+}
+
+.hero-inhoud {
+  display: grid;
+  /* Twee kolommen die meeschalen. min() zorgt dat de beeldkolom op een smal
+     scherm nooit breder wordt dan het scherm zelf. */
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: var(--ruimte-groot);
+  align-items: center;
+}
+
+.hero-label {
+  display: inline-block;
+  margin-bottom: var(--ruimte);
+  padding: 0.3rem 0.7rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background-color: var(--paneel);
+  border: 1px solid var(--rand);
+  border-radius: 999rem;   /* volledig ronde uiteinden */
+}
+
+.hero-ondertitel {
+  margin-top: var(--ruimte);
+  font-size: clamp(1.05rem, 1rem + 0.4vw, 1.25rem);
+  max-width: 34rem;
+}
+
+.hero-plaats {
+  color: var(--tekst-zacht);
+  font-size: 0.95rem;
+}
+
+.hero-knoppen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ruimte);
+  margin-top: var(--ruimte-groot);
+}
+
+.knop {
+  display: inline-block;
+  padding: 0.7rem 1.2rem;
+  border-radius: var(--afronding);
+  font-weight: 600;
+  text-decoration: none;
+  border: 2px solid transparent;
+}
+
+.knop-primair {
+  background-color: var(--accent-sterk);
+  color: var(--wit);
+}
+
+.knop-primair:hover {
+  background-color: #1741b5;
+  color: var(--wit);
+}
+
+.knop-rand {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.knop-rand:hover {
+  background-color: var(--paneel);
+  color: var(--wit);
+}
+
+.hero-beeld {
+  justify-self: center;
+  max-width: 22rem;
+}
+
+.hero-beeld img {
+  border-radius: var(--afronding);
+  border: 1px solid var(--rand);
+}
+
+figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--tekst-zacht);
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   6. SECTIES
+   -------------------------------------------------------------------------- */
+.sectie {
+  padding-top: var(--ruimte-xl);
+  padding-bottom: var(--ruimte-xl);
+}
+
+/* Om en om een andere achtergrondkleur. Zo zie je waar een onderdeel ophoudt
+   en het volgende begint, zonder dat ik overal lijnen hoef te zetten. */
+.sectie-anders {
+  background-color: var(--paneel);
+  border-top: 1px solid var(--rand);
+  border-bottom: 1px solid var(--rand);
+}
+
+.sectie-intro {
+  max-width: 46rem;
+  color: var(--tekst-zacht);
+  margin-bottom: var(--ruimte-groot);
+}
+
+/* Tekstblokken krijgen een maximale regelbreedte van ongeveer 65 tekens. */
+.tekstblok {
+  max-width: 42rem;
+}
+
+.tussenkop {
+  margin-top: var(--ruimte-groot);
+}
+
+/* Drie feitjes onder mijn introductie. */
+.feitjes {
+  display: grid;
+  /* auto-fit + minmax: de browser bepaalt zelf hoeveel kolommen er passen.
+     min(100%, 15rem) voorkomt dat een kolom breder is dan een smal scherm. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: var(--ruimte);
+  margin-top: var(--ruimte-groot);
+  list-style: none;
+}
+
+.feitjes li {
+  padding: var(--ruimte);
+  background-color: var(--paneel);
+  border: 1px solid var(--rand);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--afronding);
+}
+
+.feitje-kop {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+
+.feitje-tekst {
+  display: block;
+  font-size: 0.95rem;
+}
+
+/* Kaarten bij interesses. */
+.kaarten {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: var(--ruimte);
+  list-style: none;
+}
+
+.kaart {
+  padding: var(--ruimte-groot) var(--ruimte);
+  background-color: var(--paneel-2);
+  border: 1px solid var(--rand);
+  border-radius: var(--afronding);
+}
+
+.kaart p {
+  color: var(--tekst-zacht);
+  font-size: 0.95rem;
+}
+
+.illustratie {
+  margin-top: var(--ruimte-groot);
+  max-width: 40rem;
+}
+
+.illustratie img {
+  border-radius: var(--afronding);
+  border: 1px solid var(--rand);
+  background-color: var(--paneel-2);
+}
+
+/* Panelen naast elkaar bij vaardigheden en projectuitleg. */
+.kolommen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: var(--ruimte);
+}
+
+.kolommen-twee {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+}
+
+.paneel {
+  padding: var(--ruimte-groot) var(--ruimte);
+  background-color: var(--paneel);
+  border: 1px solid var(--rand);
+  border-radius: var(--afronding);
+}
+
+/* Lijst met een eigen vinkje in plaats van het standaard bolletje. */
+.vinkjes {
+  list-style: none;
+}
+
+.vinkjes li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.7rem;
+  font-size: 0.95rem;
+}
+
+.vinkjes li:last-child {
+  margin-bottom: 0;
+}
+
+.vinkjes li::before {
+  content: "\2713";        /* een vinkje */
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Codeblok met de mappenindeling. */
+.codeblok {
+  padding: var(--ruimte);
+  margin-bottom: var(--ruimte);
+  background-color: var(--nacht);
+  border: 1px solid var(--rand);
+  border-radius: 0.5rem;
+  /* overflow-x hoort bij een codeblok: alleen dit blok mag zijwaarts scrollen,
+     niet de hele pagina. De rest van de pagina blijft netjes in beeld. */
+  overflow-x: auto;
+  font-family: "Consolas", "DejaVu Sans Mono", monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--tekst);
+}
+
+/* Labels bij certificaten. */
+.labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  list-style: none;
+}
+
+.labels li {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  background-color: var(--paneel-2);
+  border: 1px solid var(--rand);
+  border-radius: 999rem;
+  color: var(--tekst);
+}
+
+/* --------------------------------------------------------------------------
+   7. TIJDLIJN
+   -------------------------------------------------------------------------- */
+.tijdlijn {
+  list-style: none;
+  border-left: 2px solid var(--rand);
+  padding-left: var(--ruimte-groot);
+  max-width: 46rem;
+}
+
+.tijdlijn li {
+  position: relative;
+  padding-bottom: var(--ruimte-groot);
+}
+
+.tijdlijn li:last-child {
+  padding-bottom: 0;
+}
+
+/* Bolletje op de lijn. */
+.tijdlijn li::before {
+  content: "";
+  position: absolute;
+  /* -2.4rem = de inspringing van de lijst (2rem) plus de helft van het
+     bolletje, zodat het bolletje precies op de lijn staat. */
+  left: -2.4rem;
+  top: 0.55rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background-color: var(--accent);
+  border: 2px solid var(--nacht);
+}
+
+.tijdlijn-periode {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin-bottom: 0.2rem;
+}
+
+.tijdlijn p:last-child {
+  color: var(--tekst-zacht);
+  font-size: 0.95rem;
+}
+
+/* --------------------------------------------------------------------------
+   8. CONTACT
+   -------------------------------------------------------------------------- */
+.contactlijst {
+  display: grid;
+  gap: var(--ruimte);
+  list-style: none;
+  max-width: 42rem;
+}
+
+.contactlijst li {
+  padding: var(--ruimte);
+  background-color: var(--paneel-2);
+  border: 1px solid var(--rand);
+  border-radius: var(--afronding);
+}
+
+.contact-label {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+
+.contactlijst a {
+  /* Een mailadres of URL mag afbreken als het niet past. */
+  overflow-wrap: anywhere;
+}
+
+.privacy-noot {
+  margin-top: var(--ruimte-groot);
+  max-width: 42rem;
+  font-size: 0.9rem;
+  color: var(--tekst-zacht);
+  padding-left: var(--ruimte);
+  border-left: 3px solid var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   9. FOOTER
+   -------------------------------------------------------------------------- */
+.site-footer {
+  padding-top: var(--ruimte-groot);
+  padding-bottom: var(--ruimte-groot);
+  border-top: 1px solid var(--rand);
+  background-color: var(--nacht);
+}
+
+.footer-inhoud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem var(--ruimte-groot);
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--tekst-zacht);
+}
+
+.footer-inhoud p {
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   10. LEESMODUS (wildcard user story)
+   JavaScript zet de klasse "leesmodus" op <html>. Hieronder staat wat er
+   dan verandert: grotere tekst, meer regelafstand, geen verloop, en links
+   krijgen weer een duidelijke onderstreping.
+   -------------------------------------------------------------------------- */
+html.leesmodus {
+  font-size: 118%;               /* alle rem-maten schalen hierdoor mee */
+}
+
+html.leesmodus body {
+  line-height: 1.9;
+  background-color: #05080f;     /* nog donkerder, dus meer contrast */
+}
+
+html.leesmodus .hero {
+  background-image: none;
+}
+
+html.leesmodus .tekstblok,
+html.leesmodus .sectie-intro,
+html.leesmodus .tijdlijn,
+html.leesmodus .contactlijst {
+  max-width: 38rem;              /* kortere regels bij grotere letters */
+}
+
+html.leesmodus .kaart p,
+html.leesmodus .tijdlijn p:last-child,
+html.leesmodus .sectie-intro,
+html.leesmodus .privacy-noot {
+  color: var(--tekst);           /* zachte tekst wordt gewoon wit */
+}
+
+html.leesmodus a {
+  text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   11. BREAKPOINTS
+   Ik gebruik em in plaats van px. Een media query in em reageert ook op
+   inzoomen, niet alleen op een smaller venster. Daardoor blijft de pagina
+   werken als iemand op een desktop tot 400% inzoomt.
+   -------------------------------------------------------------------------- */
+
+/* Tablet en kleiner: de hero onder elkaar in plaats van naast elkaar. */
+@media (max-width: 60em) {
+  .hero-inhoud {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-beeld {
+    /* Beeld boven de tekst zou de naam naar beneden duwen. Op mobiel zet ik
+       het beeld daarom onder de tekst: mijn naam blijft direct zichtbaar. */
+    order: 2;
+    max-width: 16rem;
+  }
+
+  .hero-tekst {
+    order: 1;
+  }
+}
+
+/* Smal scherm: hamburgermenu. */
+@media (max-width: 52em) {
+  .menu-knop {
+    display: flex;
+  }
+
+  .hoofdmenu {
+    /* Volledige breedte op een eigen regel onder de knoppen. */
+    flex-basis: 100%;
+    order: 3;
+    display: none;              /* dicht: ook niet bereikbaar met Tab */
+  }
+
+  .hoofdmenu.is-open {
+    display: block;             /* open: JavaScript zet deze klasse */
+    padding-top: var(--ruimte);
+    border-top: 1px solid var(--rand);
+    margin-top: var(--ruimte-klein);
+  }
+
+  .menu-lijst {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .menu-lijst a {
+    /* Grotere klikvlakken: prettiger voor een duim op een telefoon. */
+    padding: 0.75rem 0.25rem;
+    border-bottom: 1px solid var(--rand);
+  }
+
+  .merk-tekst {
+    font-size: 0.9rem;
+  }
+}
+
+/* Heel smal scherm (of heel ver ingezoomd): minder witruimte, alles onder elkaar. */
+@media (max-width: 30em) {
+  :root {
+    --ruimte-xl: 2.25rem;
+    --ruimte-groot: 1.25rem;
+  }
+
+  .container {
+    width: min(100% - 1.5rem, var(--breedte-inhoud));
+  }
+
+  .hero-knoppen .knop {
+    /* Knoppen over de volle breedte, zodat ze niet afgebroken worden. */
+    flex: 1 1 100%;
+    text-align: center;
+  }
+
+  .footer-inhoud {
+    flex-direction: column;
+  }
+
+  .tijdlijn {
+    padding-left: var(--ruimte);
+  }
+
+  .tijdlijn li::before {
+    left: -1.4rem;   /* zelfde rekensom bij de kleinere inspringing */
+  }
+
+  .leesmodus-tekst,
+  .merk-tekst {
+    /* Op een heel smal scherm blijven alleen "Aa" en het HK-rondje zichtbaar.
+       Zo passen merk, menuknop en leesmodusknop naast elkaar op een regel en
+       blijft mijn naam hoger in beeld staan. De tekst gaat visueel weg maar
+       blijft bestaan voor een schermlezer, zodat de knop zijn naam houdt.
+       display:none zou de naam laten verdwijnen. */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .header-inhoud {
+    gap: 0.5rem;
+  }
+
+  .menu-knop,
+  .leesmodus-knop {
+    padding: 0.5rem 0.7rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   12. VOORKEUREN VAN DE BEZOEKER
+   -------------------------------------------------------------------------- */
+
+/* Wie animaties heeft uitgezet in het systeem, krijgt ook geen smooth scroll. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Printen: zwarte tekst op wit, menu en knoppen hoeven niet op papier. */
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .site-header,
+  .hero-knoppen,
+  .skiplink,
+  .site-footer p:last-child {
+    display: none;
+  }
+
+  .sectie-anders,
+  .paneel,
+  .kaart,
+  .contactlijst li {
+    background: #fff;
+    border-color: #999;
+  }
+
+  h1, h2, h3, strong {
+    color: #000;
+  }
+}
